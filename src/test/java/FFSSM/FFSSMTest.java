@@ -132,15 +132,14 @@ public class FFSSMTest {
                 "La plongée Port-Cros ne doit pas être conforme");
     }
     
-    /*
+    
     @Test
     public void testNouvelleEmbauche(){
         //Crée une nouvelle embauche pour le moniteur Greg
-        Embauche NE;
-        NE = moniteurGreg.nouvelleEmbauche(passionKite, LocalDate.of(2020, 1, 1));
+        moniteurGreg.nouvelleEmbauche(passionKite, LocalDate.of(2020, 1, 1));
         
         //Vérifie que l'embauche a été ajouté à la liste
-        assertEquals(moniteurGreg.lesEmbauches.get(0), NE, "L'embauche n'a pas été enregistré");
+        assertTrue(moniteurGreg.emplois().contains(moniteurGreg.embauche));
     }
-*/
+
 }
