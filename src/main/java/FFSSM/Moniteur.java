@@ -4,6 +4,7 @@
 package FFSSM;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ public class Moniteur extends Plongeur {
 
     public int numeroDiplome;
     public Embauche embauche;
+    public List<Embauche> lesEmbauches = new ArrayList<>();
 
     public Moniteur(String numeroINSEE, String nom, String prenom, String adresse, String telephone, LocalDate naissance, int niveau, int numeroDiplome) {
         super(numeroINSEE, nom, prenom, adresse, telephone, naissance, niveau);
@@ -41,13 +43,11 @@ public class Moniteur extends Plongeur {
     public Embauche nouvelleEmbauche(Club employeur, LocalDate debutNouvelle) {   
         Embauche nouvelleEmbauche;
         nouvelleEmbauche = new Embauche(debutNouvelle, this, employeur);
+        this.lesEmbauches.add(nouvelleEmbauche);
         return nouvelleEmbauche;
     }
 
     public List<Embauche> emplois() {
-        /*PISTE POUR LA PROCHAINE FOIS
-        List<Embauche> add = this.emplois().add(this.nouvelleEmbauche(embauche.employeur, embauche.debut));
-        return this.emplois();
-*/  throw new UnsupportedOperationException("Pas encore implémenté");
+        return this.lesEmbauches;
     }
 }
