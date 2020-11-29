@@ -95,8 +95,6 @@ public class FFSSMTest {
     Liste des test à faire : 
     plongeeNonCoformes
     terminerEmbauche
-    employeurActuel
-    nouvelleEmbauche + emplois
     estConforme
     ajouteLicence
     
@@ -124,6 +122,20 @@ public class FFSSMTest {
         
         //Vérifie l'employeur actuel
         assertEquals(moniteurGreg.employeurActuel().get() , passionKite, "L'employeur actuel est le club Passion Kite");
+    }
+    
+    
+    @Test
+    public void testTerminerEmbauche(){
+        //Création d'une embauche
+        Embauche NE;
+        NE = moniteurGreg.nouvelleEmbauche(passionKite, LocalDate.of(2020, 1, 1));
+        
+        //Fin de l'embauche
+        moniteurGreg.embauche.terminer(LocalDate.now());
+        
+        //Vérification de la fin de l'embauche
+        assertTrue(moniteurGreg.embauche.estTerminee(), "L'embauche de Greg doit être terminée");
     }
 
 }
