@@ -26,7 +26,8 @@ public class Moniteur extends Plongeur {
      * @return l'employeur actuel de ce moniteur sous la forme d'un Optional
      */
     public Optional<Club> employeurActuel() {
-        if (!this.numeroINSEE.equals(embauche.getEmploye().numeroINSEE) || this.embauche.estTerminee()) {
+        int index = this.lesEmbauches.size() - 1;
+        if (!this.numeroINSEE.equals(this.embauche.getEmploye().numeroINSEE) || this.lesEmbauches.get(index).estTerminee()) {
             return Optional.empty();     
     }
     return Optional.of(this.embauche.getEmployeur());
@@ -44,6 +45,7 @@ public class Moniteur extends Plongeur {
         Embauche nouvelleEmbauche;
         nouvelleEmbauche = new Embauche(debutNouvelle, this, employeur);
         this.lesEmbauches.add(nouvelleEmbauche);
+        this.embauche = nouvelleEmbauche;
         return nouvelleEmbauche;
     }
 

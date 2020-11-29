@@ -6,7 +6,6 @@
 package FFSSM;
 
 import java.time.LocalDate;
-import java.util.Date;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 /**
@@ -28,8 +27,8 @@ public class FFSSMTest {
         Porquerolles = new Site("Porquerolles", "Découvrir le nord de l'ile et ses fonds marins");
         PortCros = new Site("Port-Cros", "Découvrir le parc naturel et ses fonds marins incroyables");
         moniteurGreg = new Moniteur("1234", "Slide", "Greg", "23 rue de la vague", "0701010101", LocalDate.of(1985, 5, 17), 5, 7777);
-        Porq = new Plongee(Porquerolles, moniteurGreg, LocalDate.of(2020, 7, 27), 12, 20);
-        Portc = new Plongee(PortCros, moniteurGreg, LocalDate.of(2020, 7, 25), 20, 30);
+        Porq = new Plongee(Porquerolles, moniteurGreg, LocalDate.of(2020, 11, 29), 12, 20);
+        Portc = new Plongee(PortCros, moniteurGreg, LocalDate.of(2020, 11, 30), 20, 30);
         bernard = new Plongeur("9876", "Laporte", "Bernard", "33 rue du Rugby", "0660066066", LocalDate.of(1964, 1, 7), 2);
         lisa = new Plongeur("6382", "Estebe", "Lisa", "192 rue du vide", "0770771707", LocalDate.of(2000, 2, 13), 3);
         licenceBernard = new Licence(bernard, "1566129", LocalDate.of(2020, 2, 21), passionKite);
@@ -53,12 +52,26 @@ public class FFSSMTest {
         //Vérifie l'ajout
         assertEquals(bernard.licence, Porq.listeParticipants.get(0),
                 "Le plongeur n'a pas été ajouté à la plongée");
+        
+        
+    }
+    
+    
+    @Test
+    public void testEstValide(){
+        //Test de la validité de la licence d'un plongeur
+        assertTrue(licenceBernard.estValide(LocalDate.now()), "La licence n'est pas valide");
     }
     
     /*
     @Test
-    public void testEstValide(){
-        //
+    public void testEstConforme(){
+        //On ajoute deux participants à une plongée
+        Porq.ajouteParticipant(bernard);
+        Porq.ajouteParticipant(lisa);
+        
+        //Vérifie la conformité de la plongée
+        assertFalse(Porq.estConforme(),  "La plongée n'est pas conforme car la licence de lisa ne l'est pas");
     }
     /*
     @Test
@@ -68,26 +81,49 @@ public class FFSSMTest {
         //Ajoute un participant avec une licence non-valide à la plongée Port-Cros
         Portc.ajouteParticipant(lisa);
         
+        
         //Ajoute les plongées à la liste du club
         passionKite.organisePlongee(Porq);
         passionKite.organisePlongee(Portc);
         
         //Vérifie que les plongées sont conformes
-        assertEquals(passionKite.plongeesNonConformes(), Portc, 
+        assertTrue(passionKite.plongeesNonConformes().contains(Portc), 
                 "La plongée Port-Cros ne doit pas être conforme");
     }
     /*
-    Cannot invoke "FFSSM.Licence.estValide(java.time.LocalDate)" because the return value of "java.util.ArrayList.get(int)" is null
-	at FFSSM.FFSSMTest.testplongeesNonConformes(FFSSMTest.java:71)
     
     Liste des test à faire : 
     plongeeNonCoformes
     terminerEmbauche
-    estValide
     employeurActuel
     nouvelleEmbauche + emplois
     estConforme
     ajouteLicence
     
     */
+    
+    @Test
+    public void testNouvelleEmbauche(){
+        //Crée une nouvelle embauche pour le moniteur Greg
+        Embauche NE;
+        NE = moniteurGreg.nouvelleEmbauche(passionKite, LocalDate.of(2020, 1, 1));
+        
+        //Vérifie que l'embauche a été ajouté à la liste
+        assertEquals(moniteurGreg.lesEmbauches.get(0), NE, "L'embauche n'a pas été enregistré");
+    }
+    
+    /*
+    Cannot invoke "FFSSM.Embauche.getEmploye()" because "this.embauche" is null
+	at FFSSM.FFSSMTest.testEmployeurActuel(FFSSMTest.java:123)
+    */
+    @Test
+    public void testEmployeurActuel(){
+        //Vérifie que Greg est bien employé par le club
+        Embauche NE;
+        NE = moniteurGreg.nouvelleEmbauche(passionKite, LocalDate.of(2020, 1, 1));
+        
+        //Vérifie l'employeur actuel
+        assertEquals(moniteurGreg.employeurActuel().get() , passionKite, "L'employeur actuel est le club Passion Kite");
+    }
+
 }
