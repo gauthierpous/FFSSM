@@ -13,7 +13,7 @@ public class Plongeur extends Personne {
     }
     
     public void ajouteLicence(String numero, LocalDate delivrance){
-        licence.numero = numero;
-        licence.delivrance = delivrance;
+        this.licence.numero = numero;
+        this.licence.delivrance = delivrance;
     }
 }

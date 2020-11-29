@@ -63,6 +63,30 @@ public class FFSSMTest {
         assertTrue(licenceBernard.estValide(LocalDate.now()), "La licence n'est pas valide");
     }
     
+    
+    @Test
+    public void testEmployeurActuel(){
+        //Vérifie que Greg est bien employé par le club
+        Embauche NE;
+        NE = moniteurGreg.nouvelleEmbauche(passionKite, LocalDate.of(2020, 1, 1));
+        
+        //Vérifie l'employeur actuel
+        assertEquals(moniteurGreg.employeurActuel().get() , passionKite, "L'employeur actuel est le club Passion Kite");
+    }
+    
+    
+    @Test
+    public void testTerminerEmbauche(){
+        //Création d'une embauche
+        Embauche NE;
+        NE = moniteurGreg.nouvelleEmbauche(passionKite, LocalDate.of(2020, 1, 1));
+        
+        //Fin de l'embauche
+        moniteurGreg.embauche.terminer(LocalDate.now());
+        
+        //Vérification de la fin de l'embauche
+        assertTrue(moniteurGreg.embauche.estTerminee(), "L'embauche de Greg doit être terminée");
+    }
     /*
     @Test
     public void testEstConforme(){
@@ -90,15 +114,7 @@ public class FFSSMTest {
         assertTrue(passionKite.plongeesNonConformes().contains(Portc), 
                 "La plongée Port-Cros ne doit pas être conforme");
     }
-    /*
     
-    Liste des test à faire : 
-    plongeeNonCoformes
-    terminerEmbauche
-    estConforme
-    ajouteLicence
-    
-    */
     
     @Test
     public void testNouvelleEmbauche(){
@@ -113,29 +129,14 @@ public class FFSSMTest {
     /*
     Cannot invoke "FFSSM.Embauche.getEmploye()" because "this.embauche" is null
 	at FFSSM.FFSSMTest.testEmployeurActuel(FFSSMTest.java:123)
-    */
-    @Test
-    public void testEmployeurActuel(){
-        //Vérifie que Greg est bien employé par le club
-        Embauche NE;
-        NE = moniteurGreg.nouvelleEmbauche(passionKite, LocalDate.of(2020, 1, 1));
-        
-        //Vérifie l'employeur actuel
-        assertEquals(moniteurGreg.employeurActuel().get() , passionKite, "L'employeur actuel est le club Passion Kite");
-    }
-    
     
     @Test
-    public void testTerminerEmbauche(){
-        //Création d'une embauche
-        Embauche NE;
-        NE = moniteurGreg.nouvelleEmbauche(passionKite, LocalDate.of(2020, 1, 1));
+    public void testAjouterLicence(){
+        //Ajout d'une licence à Lisa
+        lisa.ajouteLicence("5191265", LocalDate.now());
         
-        //Fin de l'embauche
-        moniteurGreg.embauche.terminer(LocalDate.now());
-        
-        //Vérification de la fin de l'embauche
-        assertTrue(moniteurGreg.embauche.estTerminee(), "L'embauche de Greg doit être terminée");
+        //Vérification que la licence ajoutée appartient bien à Lisa
+        assertEquals(lisa.licence.getDelivrance(), LocalDate.now(), "L'attribution de la licence a rencontré une erreur");
     }
-
+*/
 }
