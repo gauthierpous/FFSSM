@@ -6,7 +6,7 @@ package FFSSM;
 
 public class Site
 {
-	public String nom;
+    public String nom;
 
 	public Site(String nom, String details) {
 		this.nom = nom;
