@@ -39,14 +39,12 @@ public class Moniteur extends Plongeur {
      * Enregistrer une nouvelle embauche pour cet employeur
      * @param employeur le club employeur
      * @param debutNouvelle la date de début de l'embauche
-     * @return la nouvelle embauche créée
      */
-    public Embauche nouvelleEmbauche(Club employeur, LocalDate debutNouvelle) {   
+    public void nouvelleEmbauche(Club employeur, LocalDate debutNouvelle) {   
         Embauche nouvelleEmbauche;
         nouvelleEmbauche = new Embauche(debutNouvelle, this, employeur);
         this.lesEmbauches.add(nouvelleEmbauche);
         this.embauche = nouvelleEmbauche;
-        return nouvelleEmbauche;
     }
 
     public List<Embauche> emplois() {

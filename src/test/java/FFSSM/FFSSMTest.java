@@ -50,7 +50,7 @@ public class FFSSMTest {
         //Ajoute un particpant à la plongée
         Porq.ajouteParticipant(bernard);
         //Vérifie l'ajout
-        assertEquals(bernard.licence, Porq.listeParticipants.get(0),
+        assertEquals(bernard, Porq.listeParticipants.get(0),
                 "Le plongeur n'a pas été ajouté à la plongée");
         
         
@@ -67,8 +67,7 @@ public class FFSSMTest {
     @Test
     public void testEmployeurActuel(){
         //Vérifie que Greg est bien employé par le club
-        Embauche NE;
-        NE = moniteurGreg.nouvelleEmbauche(passionKite, LocalDate.of(2020, 1, 1));
+        moniteurGreg.nouvelleEmbauche(passionKite, LocalDate.of(2020, 1, 1));
         
         //Vérifie l'employeur actuel
         assertEquals(moniteurGreg.employeurActuel().get() , passionKite, "L'employeur actuel est le club Passion Kite");
@@ -78,8 +77,7 @@ public class FFSSMTest {
     @Test
     public void testTerminerEmbauche(){
         //Création d'une embauche
-        Embauche NE;
-        NE = moniteurGreg.nouvelleEmbauche(passionKite, LocalDate.of(2020, 1, 1));
+        moniteurGreg.nouvelleEmbauche(passionKite, LocalDate.of(2020, 1, 1));
         
         //Fin de l'embauche
         moniteurGreg.embauche.terminer(LocalDate.now());
@@ -87,24 +85,43 @@ public class FFSSMTest {
         //Vérification de la fin de l'embauche
         assertTrue(moniteurGreg.embauche.estTerminee(), "L'embauche de Greg doit être terminée");
     }
-    /*
     @Test
     public void testEstConforme(){
+        //Aout d'une licence à Bernard et à Lisa
+        bernard.ajouteLicence("5191265", LocalDate.of(2020, 2, 21), passionKite);
+        lisa.ajouteLicence("1566129", LocalDate.of(2019, 7, 27), passionKite);
+        
         //On ajoute deux participants à une plongée
         Porq.ajouteParticipant(bernard);
         Porq.ajouteParticipant(lisa);
         
+        
         //Vérifie la conformité de la plongée
         assertFalse(Porq.estConforme(),  "La plongée n'est pas conforme car la licence de lisa ne l'est pas");
     }
-    /*
+    
+    
+    @Test
+    public void testAjouteLicence(){
+        //Ajout d'une licence à Lisa
+        lisa.ajouteLicence("5191265", LocalDate.now(), passionKite);
+        
+        //Vérification que la licence ajoutée appartient bien à Lisa
+        assertEquals(lisa.licence.getDelivrance(), LocalDate.now(), "L'attribution de la licence a rencontré une erreur");
+    }
+    
+    
+    
     @Test
     public void testplongeesNonConformes(){
+        //Aout d'une licence à Bernard et à Lisa
+        bernard.ajouteLicence("5191265", LocalDate.of(2020, 2, 21), passionKite);
+        lisa.ajouteLicence("1566129", LocalDate.of(2019, 7, 27), passionKite);
+        
         //Ajoute un particpant avec une licence valide à la plongée Porquerolle
         Porq.ajouteParticipant(bernard);
         //Ajoute un participant avec une licence non-valide à la plongée Port-Cros
         Portc.ajouteParticipant(lisa);
-        
         
         //Ajoute les plongées à la liste du club
         passionKite.organisePlongee(Porq);
@@ -115,7 +132,7 @@ public class FFSSMTest {
                 "La plongée Port-Cros ne doit pas être conforme");
     }
     
-    
+    /*
     @Test
     public void testNouvelleEmbauche(){
         //Crée une nouvelle embauche pour le moniteur Greg
@@ -124,19 +141,6 @@ public class FFSSMTest {
         
         //Vérifie que l'embauche a été ajouté à la liste
         assertEquals(moniteurGreg.lesEmbauches.get(0), NE, "L'embauche n'a pas été enregistré");
-    }
-    
-    /*
-    Cannot invoke "FFSSM.Embauche.getEmploye()" because "this.embauche" is null
-	at FFSSM.FFSSMTest.testEmployeurActuel(FFSSMTest.java:123)
-    
-    @Test
-    public void testAjouterLicence(){
-        //Ajout d'une licence à Lisa
-        lisa.ajouteLicence("5191265", LocalDate.now());
-        
-        //Vérification que la licence ajoutée appartient bien à Lisa
-        assertEquals(lisa.licence.getDelivrance(), LocalDate.now(), "L'attribution de la licence a rencontré une erreur");
     }
 */
 }

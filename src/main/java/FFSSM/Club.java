@@ -37,12 +37,14 @@ public class Club {
      * @return l'ensemble des plongées non conformes
      */
     public Set<Plongee> plongeesNonConformes() {
+        
         this.plongeeOragnisees.forEach((p) -> {
             if (!p.estConforme()) {
                 this.lesPlongeesNonConformes.add(p);
             }
         });
         return this.lesPlongeesNonConformes;
+        
     }
 
     /**

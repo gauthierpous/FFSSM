@@ -20,9 +20,7 @@ public class Plongee {
 
     public int duree;
 
-    public boolean conforme;
-
-    public ArrayList<Licence> listeParticipants = new ArrayList<>();
+    public ArrayList<Plongeur> listeParticipants = new ArrayList<>();
 
     public Plongee(Site lieu, Moniteur chefDePalanquee, LocalDate date, int profondeur, int duree) {
         this.lieu = lieu;
@@ -33,7 +31,7 @@ public class Plongee {
     }
 
     public void ajouteParticipant(Plongeur participant) {
-        this.listeParticipants.add(participant.licence);
+        this.listeParticipants.add(participant);
     }
 
     public LocalDate getDate() {
@@ -49,14 +47,17 @@ public class Plongee {
      */
     public boolean estConforme() {
 
-        /*
-        for (int i = 0; i < this.listeParticipants.size(); i++) {
-            if (!this.listeParticipants.get(i).estValide(date)) {
+        int listesize;
+        listesize = this.listeParticipants.size();
+        
+        for (int i = 0; i < listesize; i++) {
+            if ( !this.listeParticipants.get(i).licence.estValide(date) ) {
                 return false;
             }
         }
         return true;
-        */
+        
+        /*
         this.conforme = true;
         this.listeParticipants.forEach((p) -> {
             if (!p.estValide(date)) {
@@ -64,6 +65,15 @@ public class Plongee {
             }
         });
         return this.conforme;
+        */
+    }
+    public void listeParticipants(){
+        int listesize;
+        listesize = this.listeParticipants.size();
+        
+        for (int i = 0; i < listesize; i++) {
+            System.out.println(this.listeParticipants.get(i).licence);
+        }
     }
     
 
